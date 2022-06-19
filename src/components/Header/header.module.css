@@ -1,8 +1,3 @@
-.error {
-    color: white;
-    background-color: red;
-}
-
 .header{
     display: flex;
     width:auto;
@@ -48,4 +43,5 @@
 .locationName{
     width: 15%;
 }
+
     

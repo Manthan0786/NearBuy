@@ -33,26 +33,29 @@ export default function Header() {
 
             <div className={styles.headerlocationrow}>
                 <div className={styles.location}>
-                <h4 className={styles.locationtitle}>Location:</h4>
-                <TextField
-                    select
-                    className={styles.locationName}
-                    value={city}
-                    onChange={handleChange}
-                    variant='standard'
-                >
-                    {area.map((city) => (
-                        <MenuItem key={city.value} value={city.id}>{city.name}</MenuItem>
-                    ))}
-                </TextField>
+                    <h4 className={styles.locationtitle}>Location:</h4>
+                    <TextField
+                        select
+                        className={styles.locationName}
+                        value={city}
+                        onChange={handleChange}
+                        variant='standard'
+                    >
+                        {area.map((city) => (
+                            <MenuItem key={city.value} value={city.id}>{city.name}</MenuItem>
+                        ))}
+                    </TextField>
                 </div>
                 <input
                     type="text"
                     placeholder="Search here"
-                    // onChange={handleChange}
-                    // value={searchInput}
+                    style={{ height: '20px' }}
+                // onChange={handleChange}
+                // value={searchInput}
                 />
             </div>
+
+            
         </>
     )
 }
