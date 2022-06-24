@@ -101,21 +101,6 @@ export default function Firstpage() {
                             </CardContent>
                         </CardActionArea>
                     </Card>
-                    <Card  sx={{ maxWidth: 345 }} className={styles.cardcontent}>
-                        <CardActionArea>
-                            <CardMedia 
-                                component="img"
-                                height="140"
-                                image="/static/images/cards/contemplative-reptile.jpg"
-                                alt="green iguana"
-                            />
-                            <CardContent >
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Clothing
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
                     </div>
                 </Paper>
             </Box>
