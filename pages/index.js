@@ -1,5 +1,5 @@
 import Firstpage from "../src/components/Firstpage/firstpage";
-import SecondPage from "../src/components/secondPage";
+import SecondPage from "../src/components/Firstpage/secondPage";
 
 export default function App() {
   return (
