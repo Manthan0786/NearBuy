@@ -1,0 +1,23 @@
+.header{
+    display: flex;
+    width:auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.title{
+    margin:0 0 0 0 ;
+    font-family: 'Playfair Display' ;
+    font-size: 1.8rem;
+    font-weight: 400;
+
+}
+.account {
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    font-size: 1rem;
+} 
+
+
+    
