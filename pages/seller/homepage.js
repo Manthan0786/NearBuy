@@ -1,11 +1,14 @@
-import Header from "../src/components/SellerHeader/header"
-import SellerProductCard from "../src/components/SellerProductCard/sellerproductcard";
+import Header from "../../src/components/SellerHeader/header";
+import SellerProductCard from "../../src/components/SellerProductCard/sellerproductcard";
 import AddIcon from '@mui/icons-material/Add';
-export default function SellerHomePage() {
+export default function HomePage() {
   return (
     <>
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Playfair+Display" />
-      <link href='https://fonts.googleapis.com/css?family=Work Sans' rel='stylesheet' />
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Playfair+Display" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
       <div>
         <Header />
         <p className="title">Inventory</p>
@@ -22,39 +25,7 @@ export default function SellerHomePage() {
           <SellerProductCard image={0} name='Shoes' price='$200' quantity='15 Pcs' />
         </div>
       </div>
-      <div className="add_inventory"><AddIcon /></div>
-      <style jsx>{`
-        .title{
-          font-family:'Work Sans';
-          font-weight:600;
-          font-size:1.8rem;
-        }
-        .inventory_container{
-          display:flex;
-          justify-content:flex-start;
-          width:100%;
-          flex-wrap:wrap;
-          background:F9FAFB;
-        }
-        .add_inventory{
-          position:absolute;
-          bottom:10px;
-          right:10px;
-          background:black;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          width:50px;
-          height:50px;
-          border-radius:50% 50%;
-          color:white;
-          padding:0;
-          
-        }
-
-      
-      `}
-      </style>
+      <div className="add_button"><AddIcon /></div>
     </>
 
   )

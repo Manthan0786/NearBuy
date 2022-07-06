@@ -10,8 +10,6 @@ export default function SecondPage() {
                 sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    marginLeft: '5%',
-                    marginRight: '5%',
                     border: '1px solid red',
                     '& > :not(style)': {
                         m: 0,
