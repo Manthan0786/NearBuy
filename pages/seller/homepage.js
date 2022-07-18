@@ -27,6 +27,5 @@ export default function HomePage() {
       </div>
       <div className="add_button"><AddIcon /></div>
     </>
-
   )
 }

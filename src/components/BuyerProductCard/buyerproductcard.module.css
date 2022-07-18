@@ -1,0 +1,13 @@
+.product_name_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.product_name {
+    font-family: 'Work Sans';
+    font-weight: 500;
+    font-size: 1rem;
+    margin-block-end: 0.2em;
+}
+
