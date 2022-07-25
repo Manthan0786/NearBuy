@@ -1,5 +1,5 @@
 import Header from '../../src/components/BuyerHeader/header';
-import Buyerproductcard from '../../src/components/BuyerProductCard/buyerProductCard';
+import Buyerproductcategorycard from '../../src/components/BuyerProductCard/buyerProductCategoryCard';
 
 function Homepage() {
     return (
@@ -11,15 +11,15 @@ function Homepage() {
             <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
             <Header />
             <div className='inventory_container'>
-                <Buyerproductcard image={0} name='Watch' />
-                <Buyerproductcard image={1} name='Wallet' />
-                <Buyerproductcard image={2} name='Shoes' />
-                <Buyerproductcard image={3} name='Bags' />
-                <Buyerproductcard image={0} name='Watch' />
-                <Buyerproductcard image={1} name='Wallet' />
-                <Buyerproductcard image={2} name='Shoes' />
-                <Buyerproductcard image={3} name='Bags' />
-                <Buyerproductcard image={0} name='Watch' />
+                <Buyerproductcategorycard image={0} name='Watch' />
+                <Buyerproductcategorycard image={1} name='Wallet' />
+                <Buyerproductcategorycard image={2} name='Shoes' />
+                <Buyerproductcategorycard image={3} name='Bags' />
+                <Buyerproductcategorycard image={0} name='Watch' />
+                <Buyerproductcategorycard image={1} name='Wallet' />
+                <Buyerproductcategorycard image={2} name='Shoes' />
+                <Buyerproductcategorycard image={3} name='Bags' />
+                <Buyerproductcategorycard image={0} name='Watch' />
             </div>
         </>
     );

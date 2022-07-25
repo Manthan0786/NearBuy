@@ -11,7 +11,7 @@ import nikejordon from '../../../public/images/shoes/nikejordon.avif';
 import adidas1 from '../../../public/images/shoes/adidas1.avif';
 import styles from '../BuyerProductCard/buyerproductcard.module.css';
 
-function Buyerproduct(props) {
+function ProductsCard(props) {
     const image = [vans,nike,nike1,nautica,reebok,reebok1,fila,nikejordon,adidas1]
     return (
         <>
@@ -38,4 +38,4 @@ function Buyerproduct(props) {
     )
 }
 
-export default Buyerproduct;
+export default ProductsCard;

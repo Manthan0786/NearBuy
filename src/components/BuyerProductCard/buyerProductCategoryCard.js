@@ -6,7 +6,7 @@ import wallet from '../../../public/images/wallet.jpg';
 import styles from '../BuyerProductCard/buyerproductcard.module.css';
 import bag from '../../../public/images/bag.jpeg';
 
-function Buyerproductcard(props) {
+function Buyerproductcategorycard(props) {
     const image = [watch,wallet,shoes,bag]
     return (
         <>
@@ -31,4 +31,4 @@ function Buyerproductcard(props) {
     )
 }
 
-export default Buyerproductcard;
+export default Buyerproductcategorycard;
