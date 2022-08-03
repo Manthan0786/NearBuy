@@ -11,3 +11,13 @@
     margin-block-end: 0.2em;
 }
 
+.product_image {
+    cursor: pointer;
+    transition: linear 0.3s;
+}
+
+.product_image:hover {
+    transition: linear 0.3s;
+    transform: scale3d(1.2, 1.2, 1);
+    -webkit-transform: scale3d(1.2, 1.2, 1);
+}
