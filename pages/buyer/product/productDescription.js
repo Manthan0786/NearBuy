@@ -1,5 +1,3 @@
-import Header from "../../../src/components/BuyerHeader/header";
-import Image from "next/image";
 import airmax90shoesimg1 from '../../../public/images/NikeAirMax90/airmax90shoesimg1.jpg';
 import airmax90shoesimg2 from '../../../public/images/NikeAirMax90/airmax90shoesimg2.jpg';
 import airmax90shoesimg3 from '../../../public/images/NikeAirMax90/airmax90shoesimg3.webp';
@@ -17,7 +15,6 @@ function ProductDescription() {
     const [description, setdescription] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit placerat pellentesque. Etiam vitae finibus ante, eget consectetur lacus. Quisque vehicula malesuada ultrices. Suspendisse tempor venenatis ipsum vel pellentesque. Curabitur nec aliquet neque. Sed vitae rhoncus mauris. Ut ex nunc, congue sed nulla ac, lacinia tristique elit. Sed lacus ante, sodales eget volutpat ac, aliquam ut eros. In hac habitasse platea dictumst. Sed sed efficitur purus, et mattis odio. Vivamus iaculis eros vitae mollis iaculis. Phasellus vel metus dui.');
     return(
         <>
-        <Header />
         <div className="product-images-description-container">
         <div className="product-images-container">
             <Imageslider image={productImage} />

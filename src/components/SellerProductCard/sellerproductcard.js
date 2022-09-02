@@ -40,4 +40,6 @@ function SellerProductCard(props) {
     );
 }
 
+
 export default SellerProductCard;
+

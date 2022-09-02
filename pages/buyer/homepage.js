@@ -1,4 +1,3 @@
-import Header from '../../src/components/BuyerHeader/header';
 import Buyerproductcategorycard from '../../src/components/BuyerProductCard/buyerProductCategoryCard';
 
 function Homepage() {
@@ -9,7 +8,6 @@ function Homepage() {
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
             <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
-            <Header />
             <div className='inventory_container'>
                 <Buyerproductcategorycard image={0} name='Watch' />
                 <Buyerproductcategorycard image={1} name='Wallet' />

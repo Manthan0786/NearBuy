@@ -54,8 +54,6 @@ export default function Header() {
                 // value={searchInput}
                 />
             </div>
-
-            
         </>
     )
 }

@@ -1,10 +1,8 @@
-import Header from "../../../src/components/BuyerHeader/header";
 import ProductsCard from "../../../src/components/BuyerProductCard/productsCard";
 
 function Products() {
     return(
         <>
-        <Header />
         <div className="inventory_container">
          <ProductsCard image={0} name='Vans' location='300 m'/>
          <ProductsCard image={1} name='Nike' location='500 m'/>
