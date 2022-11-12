@@ -32,17 +32,6 @@ export default function HomePage(props) {
 
 
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
-  const newUser = await prisma.user.create({
-    data: {
-      name: 'Manthan Bhardwaj',
-      email: 'manthanbhardwaj@manthan.com',
-    },
-  })
-
-  const users = await prisma.user.findMany()
-  console.log(users);
-
   return {
     props: {}, // will be passed to the page component as props
   }

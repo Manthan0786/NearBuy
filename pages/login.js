@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useReducer, useState } from "react";
+import { PrismaClient } from "@prisma/client";
 
 function Login() {
     function reducer(state, action) {
@@ -16,7 +17,7 @@ function Login() {
                     password: action.password
                 }
             }
-            case 'login' : {
+            case 'login': {
                 return {
                     ...state,
                     isLoading: true
@@ -31,12 +32,36 @@ function Login() {
         isLoading: false
     }
     const [state, dispatch] = useReducer(reducer, { initialState });
-    const { userName, password, isLoading } = state
+    const { userName, password, isLoading } = state;
+
+    const user = {
+        name: 'chirag',
+        password: 'chirag',
+        email: 'chirag@gmail.com'
+    }
+    
+    async function savedUser() {
+        const response = await fetch('api/user', {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+               'Content-Type': 'application/json; cahrset-8'
+            }
+        });
+    
+        if(!response) {
+            throw new Error(response.statusText);
+        }
+    
+        return await response.json();
+    }
+    
 
     const handleSubmit = (e) => {
         dispatch({
-            type:'login'
+            type: 'login'
         })
+        savedUser()
     }
 
     return (
@@ -83,23 +108,14 @@ function Login() {
                                 Forgot password?
                             </a> <br />
                         </div>
-                        <Button type='submit' className="login-button" disabled={isLoading}>{isLoading?'Logging In':'Log In'}</Button>
+                        <Button type='submit' className="login-button" disabled={isLoading}>{isLoading ? 'Logging In' : 'Log In'}</Button>
+                        {/* <Button onClick={savedUser} className="login-button" > USER</Button> */}
+
                     </form>
                 </div>
             </div>
         </>
     )
 }
-
-// export async function getServerSideProps({ req, res }) {
-//     const userId = new Cookies(req, res).get('user_id');
-//     const projects = await new Promise((resolve, reject) =>
-//       pool.query(
-//         SQL`INSERT INTO users (email, password) WHERE user_id = ${userId};`,
-//         (err, results) => (err ? reject(err) : resolve(results))
-//       )
-//     );
-//     return { props: { projects } };
-//   }
 
 export default Login;

@@ -87,6 +87,9 @@ html {
     font-family: 'Work Sans';
     font-size: 1.35rem;
     font-weight: 100;
+    width: 100%;
+    height: 70px;
+    border: 1.5px solid black;
 }
 
 .product_edit_buttons {
@@ -98,11 +101,6 @@ html {
     font-family: 'Work Sans';
     font-size: 1.1rem;
     font-weight: 300;
-}
-
-.product_description {
-    border: 2px solid orange;
-    background-color: lightblue;
 }
 
 .product-images-description-container {

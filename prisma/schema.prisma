@@ -12,7 +12,7 @@ model User {
   createdAt DateTime @default(now())
   email     String   @unique
   name      String?
-  password  String   
+  password  String?
   seller    Seller[]
   order     Order[]
   cart      Cart[]
@@ -30,13 +30,15 @@ model Seller {
 model Products {
   id           Int     @id @default(autoincrement())
   seller       Seller  @relation(fields: [sellerID], references: [id])
-  sellerID     Int     @unique
+  sellerID     Int     
   name         String  @db.VarChar(255)
   price        Int     @db.Integer 
   quantity     Int     @db.Integer
+  category     String  @default("Other") 
   cart         Cart[]
   product      ProductsOrdered[]
 }
+
 
 model Cart {
   id        Int      @id @default(autoincrement())
@@ -61,4 +63,9 @@ model ProductsOrdered {
   orderId   Int      
   product   Products @relation(fields: [productId], references: [id])
   productId Int
+}
+
+enum Role {
+  USER
+  ADMIN
 }
