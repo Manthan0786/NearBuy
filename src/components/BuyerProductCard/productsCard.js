@@ -12,28 +12,28 @@ import adidas1 from '../../../public/images/shoes/adidas1.avif';
 import styles from '../BuyerProductCard/buyerproductcard.module.css';
 
 function ProductsCard(props) {
-    const image = [vans,nike,nike1,nautica,reebok,reebok1,fila,nikejordon,adidas1]
+    const image = [vans, nike, nike1, nautica, reebok, reebok1, fila, nikejordon, adidas1]
     return (
         <>
-        <div className='product_productname'>
-        <Link href='../../buyer/product/productDescription'>
-                <a>
-                    <Image
-                        src={image[props.image]}
-                        alt={props.name}
-                        className={styles.product_image}
-                        width={250}
-                        height={250}
-                        layout="responsive"
-                        placeholder="blur"
-                    />
-                </a>
-            </Link>
-            <div className={styles.product_name_price}>
-            <p className={styles.product_name}>{props.name}</p>
-            <p className={styles.product_name}>{props.location}</p>
+            <div className='product_productname'>
+                <Link href={`/buyer/product/${props.id}`}>
+                    <a>
+                        <Image
+                            src={image[props.image]}
+                            alt={props.name}
+                            className={styles.product_image}
+                            width={250}
+                            height={250}
+                            layout="responsive"
+                            placeholder="blur"
+                        />
+                    </a>
+                </Link>
+                <div className={styles.product_name_price}>
+                    <p className={styles.product_name}>{props.name}</p>
+                    <p className={styles.product_name}>{props.location}</p>
+                </div>
             </div>
-        </div>            
         </>
     )
 }

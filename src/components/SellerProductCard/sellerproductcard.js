@@ -2,16 +2,17 @@ import Image from 'next/image';
 import shoes from '../../../public/images/shoes.jpeg'
 import bag from '../../../public/images/bag.jpeg'
 import watch from '../../../public/images/watch.png'
-import styles from './sellerproductcard.module.css'
+import styles from './sellerproductcard.module.css';
 import Link from 'next/link';
 
 function SellerProductCard(props) {
+
     const images = [shoes, bag, watch];
     return (
         <>
 
             <div>
-                <Link href="/seller/product/Shoes">
+                <Link href={`/seller/product/${props.name}`}>
                     <a>
                         <Image
                             src={images[props.image]}

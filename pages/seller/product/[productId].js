@@ -25,7 +25,6 @@ function ImageGridItem(img, index) {
             src={img.src}
             alt="Picture of the Product"
         />
-
     )
 }
 
@@ -40,29 +39,33 @@ function getSpanEstimate(size) {
 export default function Product() {
     const imageList = [shoes, shoes, shoes1, shoes2, shoes3, shoes3, shoes3, shoes4];
     const router = useRouter();
-    const [quantity, setQuantity] = useState(10);
     const { productId } = router.query;
-    const [description, setDescription] = useState('')
-
-    const value = {
-        'quantity': quantity,
-        'description': description
+    const [state, setState] = useState({
+        quantity : 10,
+        price : 0,
+        description: '',
+        name : '',
+        sellerID : 1
+    })
+    const {quantity, description, name, price} = state;
+    const handleChange=(e)=> {
+        setState({...state, [e.target.name] : e.target.value });
     }
-
-    setDescription
-
     async function saveData() {
-        const response = await fetch('api/product.js', {
-            method: 'POST',
-            body: JSON.stringify(value),
-            headers: {
-               'Content-Type': 'application/json; cahrset-8'
-            }
-        });
-        if(!response) {
-            throw new Error(response.statusText);
+        try {
+            const response = await fetch('../../api/product', {
+                method: 'POST',
+                body: JSON.stringify(state),
+                headers: {
+                    'Content-Type': 'application/json;'
+                }
+            });            
+            const data = await response.json();
+            return data;
         }
-        return await response.json();
+        catch(e) {
+            console.log(e);
+        }
     }
 
     return (
@@ -76,7 +79,7 @@ export default function Product() {
                     <p className="title">{productId}</p>
                     <EditIcon />
                 </div>
-
+                <input className="product_details_title" type="text" placeholder="Enter name of product" name='name' value={name} onChange={handleChange}/>
                 <p className="product_details_title">Product Images</p>
                 <div className="product_images">
                     {imageList.map((img, index) => {
@@ -92,25 +95,32 @@ export default function Product() {
 
                 <div className="product_qauntity_container">
                     <div className="product_quantity_edit title" onClick={() => {
-                        setQuantity(quantity - 1);
+                        setState({...state, quantity : quantity - 1 });
                     }}>-</div>
                     <p className="product_details_title">{quantity}</p>
                     <div className="product_quantity_edit title" onClick={() => {
-                        setQuantity(quantity + 1);
+                        setState({...state, quantity : quantity + 1});
                     }}>+</div>
                 </div>
+
+                <div className="product_details_edit_container">
+                    <p className="product_details_title">Product Price</p>
+                    <input className="product_details_title" type="text" onChange={handleChange} name='price' value={price}/>
+                    <EditIcon />
+                </div>
+                
 
                 <div className="product_details_edit_container">
                     <p className="product_details_title">Product Description</p>
                     <EditIcon sx={{ cursor: "pointer" }} />
                 </div>
-                <textarea className="product_description" value='description'>{description}</textarea>
+                
+                <textarea className="product_description" name='description' value={description} onChange={handleChange}></textarea>
 
                 <div className="product_details_edit_container">
                     <button className="product_edit_buttons">Cancel</button>
                     <button className="product_edit_buttons" onClick={saveData}>Save</button>
                 </div>
-
             </div>
         </>
     )

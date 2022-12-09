@@ -42,7 +42,7 @@ export default function Header() {
                         variant='standard'
                     >
                         {area.map((city) => (
-                            <MenuItem key={city.value} value={city.id}>{city.name}</MenuItem>
+                            <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
                         ))}
                     </TextField>
                 </div>

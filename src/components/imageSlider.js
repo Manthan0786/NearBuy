@@ -1,16 +1,13 @@
 import { useState } from "react";
 import Image from "next/image";
-import { height } from "@mui/system";
 import styles from '../../src/components/imageSlider.module.css';
 
-function Imageslider({ image }) {
-    const [currIndex, setcurrIndex] = useState(0);
-
+function Imageslider({images}) {
     return (
         <>
-            {image.map((img, id) =>
+            {images.map((img, index) =>
                 <div className={styles.image_size}>
-                    <Image layout="responsive" placeholder="blur" key={id} src={img} />
+                    <Image key={index} layout="responsive" placeholder="blur" src={img} />
                 </div>
             )}
         </>

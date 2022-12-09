@@ -35,9 +35,9 @@ function Login() {
     const { userName, password, isLoading } = state;
 
     const user = {
-        name: 'chirag',
+        name: 'manthan',
         password: 'chirag',
-        email: 'chirag@gmail.com'
+        email: 'zyan@gmail.com'
     }
     
     async function savedUser() {
@@ -48,15 +48,12 @@ function Login() {
                'Content-Type': 'application/json; cahrset-8'
             }
         });
-    
         if(!response) {
             throw new Error(response.statusText);
         }
-    
         return await response.json();
     }
     
-
     const handleSubmit = (e) => {
         dispatch({
             type: 'login'

@@ -1,6 +1,6 @@
 import SellerProductCard from "../../src/components/SellerProductCard/sellerproductcard";
 import AddIcon from '@mui/icons-material/Add';
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
 export default function HomePage(props) {
   return (
