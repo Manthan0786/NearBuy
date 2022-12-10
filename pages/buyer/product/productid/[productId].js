@@ -1,12 +1,12 @@
-import airmax90shoesimg1 from '../../../public/images/NikeAirMax90/airmax90shoesimg1.jpg';
-import airmax90shoesimg2 from '../../../public/images/NikeAirMax90/airmax90shoesimg2.jpg';
-import airmax90shoesimg3 from '../../../public/images/NikeAirMax90/airmax90shoesimg3.webp';
-import airmax90shoesimg4 from '../../../public/images/NikeAirMax90/airmax90shoesimg4.jpg';
-import airmax90shoesimg5 from '../../../public/images/NikeAirMax90/airmax90shoesimg5.jpg';
-import airmax90shoesimg6 from '../../../public/images/NikeAirMax90/airmax90shoesimg6.webp';
-import airmax90shoesimg7 from '../../../public/images/NikeAirMax90/airmax90shoesimg7.jpg';
-import airmax90shoesimg8 from '../../../public/images/NikeAirMax90/airmax90shoesimg8.jpg';
-import Imageslider from "../../../src/components/imageSlider";
+import airmax90shoesimg1 from '../../../../public/images/NikeAirMax90/airmax90shoesimg1.jpg';
+import airmax90shoesimg2 from '../../../../public/images/NikeAirMax90/airmax90shoesimg2.jpg';
+import airmax90shoesimg3 from '../../../../public/images/NikeAirMax90/airmax90shoesimg3.webp';
+import airmax90shoesimg4 from '../../../../public/images/NikeAirMax90/airmax90shoesimg4.jpg';
+import airmax90shoesimg5 from '../../../../public/images/NikeAirMax90/airmax90shoesimg5.jpg';
+import airmax90shoesimg6 from '../../../../public/images/NikeAirMax90/airmax90shoesimg6.webp';
+import airmax90shoesimg7 from '../../../../public/images/NikeAirMax90/airmax90shoesimg7.jpg';
+import airmax90shoesimg8 from '../../../../public/images/NikeAirMax90/airmax90shoesimg8.jpg';
+import Imageslider from "../../../../src/components/imageSlider";
 import { Button } from "@mui/material";
 import { PrismaClient } from "@prisma/client";
 

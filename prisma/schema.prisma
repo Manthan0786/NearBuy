@@ -35,7 +35,7 @@ model Products {
   price        Int     @db.Integer 
   quantity     Int     @db.Integer
   description  String  @db.VarChar(255)
-  category     String  @default("Other") 
+  category     String   
   cart         Cart[]
   product      ProductsOrdered[]
 }

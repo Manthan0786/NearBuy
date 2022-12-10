@@ -45,9 +45,11 @@ export default function Product() {
         price : 0,
         description: '',
         name : '',
-        sellerID : 1
+        sellerID : 1,
+        category: productId
     })
     const {quantity, description, name, price} = state;
+    const [edit, setEdit] = useState(false);
     const handleChange=(e)=> {
         setState({...state, [e.target.name] : e.target.value });
     }
@@ -77,7 +79,6 @@ export default function Product() {
             <div>
                 <div className="product_details_edit_container">
                     <p className="title">{productId}</p>
-                    <EditIcon />
                 </div>
                 <input className="product_details_title" type="text" placeholder="Enter name of product" name='name' value={name} onChange={handleChange}/>
                 <p className="product_details_title">Product Images</p>
@@ -106,7 +107,6 @@ export default function Product() {
                 <div className="product_details_edit_container">
                     <p className="product_details_title">Product Price</p>
                     <input className="product_details_title" type="text" onChange={handleChange} name='price' value={price}/>
-                    <EditIcon />
                 </div>
                 
 

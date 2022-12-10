@@ -16,7 +16,7 @@ function ProductsCard(props) {
     return (
         <>
             <div className='product_productname'>
-                <Link href={`/buyer/product/${props.id}`}>
+                <Link href={`/buyer/product/productid/${props.id}`}>
                     <a>
                         <Image
                             src={image[props.image]}

@@ -1,5 +1,6 @@
 import ProductsCard from "../../../src/components/BuyerProductCard/productsCard";
 import { PrismaClient } from "@prisma/client";
+import { pink } from "@mui/material/colors";
 
 function Products(props) {
     const data = props.res;
@@ -10,7 +11,7 @@ function Products(props) {
                 {
                     data.map(p => {
                         return (
-                            <ProductsCard key={p.id} id={p.id} image={4} name={p.name} />
+                            <ProductsCard key={p.id} id={p.id} image={4} name={p.name} /> 
                         )
                     })
                 }
@@ -19,10 +20,11 @@ function Products(props) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     const prisma = new PrismaClient();
+    const { productCategory } = context.params;
     const res = await prisma.Products.findMany({
-        where: { category: 'Other' },
+        where: { category: productCategory },
     });
     return { props: { res } }
 }

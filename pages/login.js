@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import { useReducer, useState } from "react";
 import { PrismaClient } from "@prisma/client";
 
@@ -39,21 +39,22 @@ function Login() {
         password: 'chirag',
         email: 'zyan@gmail.com'
     }
-    
+
     async function savedUser() {
         const response = await fetch('api/user', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
-               'Content-Type': 'application/json; cahrset-8'
+                'Content-Type': 'application/json; cahrset-8'
             }
         });
-        if(!response) {
+        if (!response) {
             throw new Error(response.statusText);
         }
         return await response.json();
+        console.log(response);
     }
-    
+
     const handleSubmit = (e) => {
         dispatch({
             type: 'login'
@@ -107,8 +108,14 @@ function Login() {
                         </div>
                         <Button type='submit' className="login-button" disabled={isLoading}>{isLoading ? 'Logging In' : 'Log In'}</Button>
                         {/* <Button onClick={savedUser} className="login-button" > USER</Button> */}
-
                     </form>
+
+                    <p>OR</p>
+
+                    <Link href="/signup">
+                        <Button>Sign Up</Button>
+                    </Link>
+
                 </div>
             </div>
         </>
