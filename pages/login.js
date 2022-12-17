@@ -52,7 +52,6 @@ function Login() {
             throw new Error(response.statusText);
         }
         return await response.json();
-        console.log(response);
     }
 
     const handleSubmit = (e) => {

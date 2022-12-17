@@ -11,7 +11,8 @@ model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
-  name      String?
+  firstname String?
+  lastname  String?
   password  String?
   seller    Seller[]
   order     Order[]
