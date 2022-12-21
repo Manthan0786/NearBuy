@@ -23,18 +23,22 @@ function Signup() {
     }
     
     async function savedUser() {
-        
-        const response = await fetch('api/user', {
-            method: 'POST',
-            body: JSON.stringify(state),
-            headers: {
-                'Content-Type': 'application/json; cahrset-8'
+        try {
+            const response = await fetch('api/user', {
+                method: 'POST',
+                body: JSON.stringify(state),
+                headers: {
+                    'Content-Type': 'application/json; cahrset-8'
+                }
+            });
+            if (!response) {
+                throw new Error(response.statusText);
             }
-        });
-        if (!response) {
-            throw new Error(response.statusText);
+            return await response.json();
+        } catch(err) {
+            console.error(err);
         }
-        return await response.json();
+        
     }
 
     return (

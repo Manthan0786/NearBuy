@@ -1,6 +1,7 @@
 import { Button, Link } from "@mui/material";
 import { useReducer, useState } from "react";
 import { PrismaClient } from "@prisma/client";
+import Cookies from 'js-cookie';
 
 function Login() {
     function reducer(state, action) {
@@ -35,26 +36,43 @@ function Login() {
     const { userName, password, isLoading } = state;
 
     const user = {
-        name: 'manthan',
+        email: 'zyan@gmail.com',
         password: 'chirag',
-        email: 'zyan@gmail.com'
     }
 
     async function savedUser() {
-        const response = await fetch('api/user', {
-            method: 'POST',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json; cahrset-8'
+        try {
+            const res = await fetch('api/login', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-Type': 'application/json; cahrset-8'
+                }
+            });
+            const { data } = await fetch('/api/protected', {
+                method: 'GET',
+                headers: {
+                  Authorization: `Bearer ${res.data.token}`,
+                },
+              });
+            const response = await res.json();
+            console.log(response);
+            if (res.status === 401) {
+                
+                throw new Error(res.statusText);
             }
-        });
-        if (!response) {
-            throw new Error(response.statusText);
+            if (!res) {
+                throw new Error(res.statusText);
+            }
+            return await res.json();
+        } catch (e) {
+            console.error(e)
         }
-        return await response.json();
     }
 
+
     const handleSubmit = (e) => {
+        e.preventDefault();
         dispatch({
             type: 'login'
         })

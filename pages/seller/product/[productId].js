@@ -45,7 +45,7 @@ export default function Product() {
         price : 0,
         description: '',
         name : '',
-        sellerID : 1,
+        sellerID : 2,
         category: productId
     })
     const {quantity, description, name, price} = state;
