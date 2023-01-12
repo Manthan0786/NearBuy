@@ -1,7 +1,8 @@
 import { Button, Link } from "@mui/material";
 import { useReducer, useState } from "react";
 import { PrismaClient } from "@prisma/client";
-import Cookies from 'js-cookie';
+import HeaderLogin from "../src/components/loginHeader";
+
 
 function Login() {
     function reducer(state, action) {
@@ -9,7 +10,7 @@ function Login() {
             case 'Change_UserName': {
                 return {
                     ...state,
-                    userName: action.name
+                    email: action.name
                 };
             }
             case 'type_password': {
@@ -28,43 +29,34 @@ function Login() {
         throw Error('Unknown action: ' + action.type);
     }
     const initialState = {
-        userName: '',
+        email: '',
         password: '',
         isLoading: false
     }
-    const [state, dispatch] = useReducer(reducer, { initialState });
-    const { userName, password, isLoading } = state;
-
-    const user = {
-        email: 'zyan@gmail.com',
-        password: 'chirag',
-    }
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const { email, password, isLoading } = state;
 
     async function savedUser() {
         try {
             const res = await fetch('api/login', {
                 method: 'POST',
-                body: JSON.stringify(user),
+                body: JSON.stringify(state),
                 headers: {
                     'Content-Type': 'application/json; cahrset-8'
                 }
             });
-            const { data } = await fetch('/api/protected', {
-                method: 'GET',
-                headers: {
-                  Authorization: `Bearer ${res.data.token}`,
-                },
-              });
-            const response = await res.json();
+            const result = await res.json();
             console.log(response);
+            if (result.token) {
+
+            }
             if (res.status === 401) {
-                
                 throw new Error(res.statusText);
             }
             if (!res) {
                 throw new Error(res.statusText);
             }
-            return await res.json();
+            return console.log(res.statusText);
         } catch (e) {
             console.error(e)
         }
@@ -81,7 +73,9 @@ function Login() {
 
     return (
         <>
+            <HeaderLogin />
             <div className="loginpage">
+
                 <div>
                     <h1>Picture</h1>
                 </div>
@@ -89,10 +83,10 @@ function Login() {
                     <form onSubmit={handleSubmit}>
                         <h1>Sign In</h1>
                         <div className="container">
-                            <label className="label" for='Emial_Address'>Email Address</label>
+                            <label className="label" htmlFor='Emial_Address'>Email Address</label>
                             <input
                                 required
-                                value={userName}
+                                value={email}
                                 name='Emial_Address'
                                 className="input"
                                 id='Emial_Address'
@@ -105,7 +99,7 @@ function Login() {
                                 }} />
                         </div>
                         <div className="container">
-                            <label className="label" for='Password'>Password</label>
+                            <label className="label" htmlFor='Password'>Password</label>
                             <input
                                 required
                                 value={password}

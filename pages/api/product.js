@@ -10,9 +10,9 @@ export default async (req, res) => {
         let userData = await JSON.parse(req.body);
         userData.price = parseInt(userData.price);
         const savedUser = await prisma.Products.create({
-             data: userData,
+            data: userData,
         })
-        return  res.json()
+        return res.json()
     } catch (e) {
         console.log(e);
     }

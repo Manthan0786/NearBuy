@@ -41,17 +41,21 @@ export default function Product() {
     const router = useRouter();
     const { productId } = router.query;
     const [state, setState] = useState({
-        quantity : 10,
-        price : 0,
+        quantity: 10,
+        price: 0,
         description: '',
-        name : '',
-        sellerID : 2,
+        name: '',
+        seller: {
+            connect: {
+                id: 2
+            }
+        },
         category: productId
     })
-    const {quantity, description, name, price} = state;
+    const { quantity, description, name, price } = state;
     const [edit, setEdit] = useState(false);
-    const handleChange=(e)=> {
-        setState({...state, [e.target.name] : e.target.value });
+    const handleChange = (e) => {
+        setState({ ...state, [e.target.name]: e.target.value });
     }
     async function saveData() {
         try {
@@ -61,11 +65,11 @@ export default function Product() {
                 headers: {
                     'Content-Type': 'application/json;'
                 }
-            });            
+            });
             const data = await response.json();
             return data;
         }
-        catch(e) {
+        catch (e) {
             console.log(e);
         }
     }
@@ -80,7 +84,7 @@ export default function Product() {
                 <div className="product_details_edit_container">
                     <p className="title">{productId}</p>
                 </div>
-                <input className="product_details_title" type="text" placeholder="Enter name of product" name='name' value={name} onChange={handleChange}/>
+                <input className="product_details_title" type="text" placeholder="Enter name of product" name='name' value={name} onChange={handleChange} />
                 <p className="product_details_title">Product Images</p>
                 <div className="product_images">
                     {imageList.map((img, index) => {
@@ -96,25 +100,25 @@ export default function Product() {
 
                 <div className="product_qauntity_container">
                     <div className="product_quantity_edit title" onClick={() => {
-                        setState({...state, quantity : quantity - 1 });
+                        setState({ ...state, quantity: quantity - 1 });
                     }}>-</div>
                     <p className="product_details_title">{quantity}</p>
                     <div className="product_quantity_edit title" onClick={() => {
-                        setState({...state, quantity : quantity + 1});
+                        setState({ ...state, quantity: quantity + 1 });
                     }}>+</div>
                 </div>
 
                 <div className="product_details_edit_container">
                     <p className="product_details_title">Product Price</p>
-                    <input className="product_details_title" type="text" onChange={handleChange} name='price' value={price}/>
+                    <input className="product_details_title" onChange={handleChange} name='price' value={price} />
                 </div>
-                
+
 
                 <div className="product_details_edit_container">
                     <p className="product_details_title">Product Description</p>
                     <EditIcon sx={{ cursor: "pointer" }} />
                 </div>
-                
+
                 <textarea className="product_description" name='description' value={description} onChange={handleChange}></textarea>
 
                 <div className="product_details_edit_container">

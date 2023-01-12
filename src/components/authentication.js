@@ -1,4 +1,4 @@
-import { Jwt } from 'jsonwebtoken';
+import { jwt } from 'jsonwebtoken';
 
 function verifyJWT(token) {
     return jwt.verify(token, JWT_SECRET);

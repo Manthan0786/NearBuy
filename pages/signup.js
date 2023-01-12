@@ -1,8 +1,7 @@
 import { Button, Link, TextField } from "@mui/material";
 import { useReducer } from "react";
 import React from "react";
-
-
+import CryptoJS from "crypto-js";
 
 function Signup() {
 
@@ -24,9 +23,10 @@ function Signup() {
     
     async function savedUser() {
         try {
+            const hashedPassword = CryptoJS.SHA256(state.password).toString()
             const response = await fetch('api/user', {
                 method: 'POST',
-                body: JSON.stringify(state),
+                body: JSON.stringify({...state,password: hashedPassword}),
                 headers: {
                     'Content-Type': 'application/json; cahrset-8'
                 }
@@ -34,7 +34,7 @@ function Signup() {
             if (!response) {
                 throw new Error(response.statusText);
             }
-            return await response.json();
+            return console.log(response.statusText);
         } catch(err) {
             console.error(err);
         }

@@ -14,13 +14,13 @@ export default function HomePage(props) {
         <p className="title">Inventory</p>
         <div className="inventory_container">
           <SellerProductCard image={0} name='Shoes' price='$200' quantity='15 Pcs' />
-          <SellerProductCard image={1} name='Bag' price='$200' quantity='15 Pcs' />
+          <SellerProductCard image={1} name='Bags' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={2} name='Watch' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={0} name='Shoes' price='$200' quantity='15 Pcs' />
-          <SellerProductCard image={1} name='Bag' price='$200' quantity='15 Pcs' />
+          <SellerProductCard image={1} name='Bags' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={2} name='Watch' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={0} name='Shoes' price='$200' quantity='15 Pcs' />
-          <SellerProductCard image={1} name='Bag' price='$200' quantity='15 Pcs' />
+          <SellerProductCard image={1} name='Bags' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={2} name='Watch' price='$200' quantity='15 Pcs' />
           <SellerProductCard image={0} name='Shoes' price='$200' quantity='15 Pcs' />
         </div>
