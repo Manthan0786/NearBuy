@@ -61,7 +61,7 @@ export default function Product() {
         try {
             const response = await fetch('../../api/product', {
                 method: 'POST',
-                body: JSON.stringify(state),
+                body: JSON.stringify(state),            
                 headers: {
                     'Content-Type': 'application/json;'
                 }

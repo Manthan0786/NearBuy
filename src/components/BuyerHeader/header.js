@@ -25,7 +25,10 @@ export default function Header() {
     return (
         <>
             <div className={styles.header}>
-                <h1 className={styles.title}>NearBuy</h1>
+                <Link href={"/"} >
+                  <h1 className={styles.title}>NearBuy</h1>
+                </Link>
+                
                 <div className={styles.account}>
                     <PersonIcon sx={{ fontSize: '1.3rem' }} />
                     <p>My Account</p>
@@ -48,11 +51,9 @@ export default function Header() {
                     </TextField>
                 </div>
                 <input
+                    className='searchbar'
                     type="text"
                     placeholder="Search here"
-                    style={{ height: '20px' }}
-                // onChange={handleChange}
-                // value={searchInput}
                 />
             </div>
         </>

@@ -9,8 +9,18 @@ import airmax90shoesimg8 from '../../../../public/images/NikeAirMax90/airmax90sh
 import Imageslider from "../../../../src/components/imageSlider";
 import { Button } from "@mui/material";
 import { PrismaClient } from "@prisma/client";
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../../src/components/store';
+import { useRouter } from 'next/router';
+import { Link } from '@mui/material';
 
 function ProductDescription(props) {
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const handleAddProduct = (props) => {
+
+    }
+
     const productImage = [airmax90shoesimg1, airmax90shoesimg2, airmax90shoesimg3, airmax90shoesimg4, airmax90shoesimg5, airmax90shoesimg6, airmax90shoesimg7, airmax90shoesimg8];
     return (
         <>
@@ -21,10 +31,23 @@ function ProductDescription(props) {
                 <div className="product-information">
                     <h2>Model Name</h2>
                     <p rows="8" cols={70}>{props.name}</p>
-                    <Button sx={{ backgroundColor: "black", width: '100%' }}>Buy Now</Button>
+                    
+                        <Button sx={{ backgroundColor: "black", width: '100%' }} onClick={() => {
+                            
+                            dispatch(addProduct({
+                                productImage: productImage[0],
+                                productName: props.name,
+                                productPrice: props.price,
+                                productDescription: props.description,
+                                productQuantity: 1
+                            }))
+                            router.push('/cart')
+                        }}>Buy Now</Button>
+                  
                     <h2>Product Information</h2>
                     <p>{props.description}</p>
-                    <p>{props.price}</p>
+                    <h2>Price</h2>
+                    <p>${props.price}</p>
                 </div>
             </div>
         </>

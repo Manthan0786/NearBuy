@@ -6,8 +6,8 @@ function Imageslider({images}) {
     return (
         <>
             {images.map((img, index) =>
-                <div className={styles.image_size}>
-                    <Image key={index} layout="responsive" placeholder="blur" src={img} />
+                <div key={index} className={styles.image_size}>
+                    <Image layout="responsive" placeholder="blur" src={img} />
                 </div>
             )}
         </>
