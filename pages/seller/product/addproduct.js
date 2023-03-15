@@ -1,20 +1,23 @@
+import Header from "../../../src/components/SellerHeader/header";
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import shoes from '../../../public/images/shoes.jpeg'
+import shoes1 from '../../../public/images/shoes1.jpg'
+import shoes2 from '../../../public/images/shoes2.jpg'
+import shoes3 from '../../../public/images/shoes3.jpg'
+import shoes4 from '../../../public/images/shoes4.jpg'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DropzoneDialog } from 'mui-file-dropzone';
-import { PrismaClient } from "@prisma/client";
-import { promises as fs } from 'fs'
-import path from 'path'
+import { redirect } from "next/dist/server/api-utils";
 
 function ImageGridItem(img, index) {
     var image = new Image();
     image.src = img.base64;
-
     var dimensions = {
         width: image.width,
         height: image.height
     }
-    console.log(img);
     const style = {
         gridColumnEnd: `span ${getSpanEstimate(dimensions.width)}`,
         gridRowEnd: `span ${getSpanEstimate(dimensions.height)}`,
@@ -45,13 +48,12 @@ function getSpanEstimate(size) {
 
 
 
-export default function AddProduct({ product }) {
-
+export default function AddProduct() {
     const [quantity, setQuantity] = useState(10);
-    const [description, setDescription] = useState(product.Description);
-    const [name, setName] = useState(product.name);
+    const [description, setDescription] = useState('');
+    const [name, setName] = useState('');
     const [open, setOpen] = useState(false);
-    const [price, setPrice] = useState(product.price);
+    const [price, setPrice] = useState(0.00);
     const [imageList, setImageList] = useState([]);
     const router = useRouter();
 
@@ -68,40 +70,6 @@ export default function AddProduct({ product }) {
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     })
-
-    const getBase64FromUrl = async (url) => {
-        const data = await fetch(url);
-        const blob = await data.blob();
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = () => {
-                const base64data = reader.result;
-                resolve(base64data);
-            }
-        });
-    }
-
-
-
-    useEffect(() => {
-        const changeImagestoBase64 = async (files) => {
-            const list = []
-            for (var i = 0; i < files.length; i++) {
-                const file = files[i];
-                const base64 = await getBase64FromUrl(file);
-                const fileData = await { base64, fileName: "product" };
-                list.push(fileData);
-            }
-            setImageList(list);
-        }
-
-
-        changeImagestoBase64(product.url);
-
-    }, [product]);
-
-
 
     const saveImages = async (files) => {
         const list = []
@@ -171,8 +139,7 @@ export default function AddProduct({ product }) {
                     <input style={{ marginBottom: '50px', marginTop: '50px', width: '100%' }} placeholder={"Product Name"} value={name} onChange={(e) => { setName(e.target.value) }} className="title"></input>
                 </div>
 
-                <p className="product_details_title">Product Images</p>
-                <div style={{ display: 'inline-flex' }} onClick={() => setOpen(true)} className="product_image_add_button"><AddIcon /></div>
+                <p className="product_details_title">Product Images <div style={{ display: 'inline-flex' }} onClick={() => setOpen(true)} className="product_image_add_button"><AddIcon /></div></p>
                 <div className="product_images">
                     {imageList.map((img, index) => {
                         return ImageGridItem(img, index);
@@ -209,43 +176,12 @@ export default function AddProduct({ product }) {
                     setDescription(e.target.value)
                 }}></textarea>
 
-                <div style={{ marginTop: '50px' }} className="product_details_edit_container">
-                    <button onClick={() => { router.push("/seller/homepage") }} className="product_edit_buttons">Cancel</button>
+                <div style={{marginTop:'50px'}} className="product_details_edit_container">
+                    <button onClick={()=>{router.push("/seller/homepage")}}className="product_edit_buttons">Cancel</button>
                     <button className="product_edit_buttons" onClick={saveData}>Save</button>
                 </div>
 
             </div>
         </>
     )
-}
-
-export async function getServerSideProps(context) {
-    const prisma = new PrismaClient();
-    const productId = parseInt(context.query.productId);
-    const products = await prisma.products.findMany(
-        {
-            where: {
-                id: productId
-            }
-        }
-    )
-
-    for (var i = 0; i < products.length; i++) {
-        var productImages = []
-        const dir = "public/uploads/product-" + products[i].id
-        const imageDirectory = path.join(process.cwd(), dir);
-        const filenames = await fs.readdir(imageDirectory)
-        filenames.forEach(file => {
-            const url = "http://localhost:3000/uploads/product-" + products[i].id + "/" + file;
-            productImages.push(url);
-        });
-        products[i].url = productImages;
-    }
-    console.log(products);
-
-    return {
-        props: {
-            product: products[0]
-        },
-    }
 }

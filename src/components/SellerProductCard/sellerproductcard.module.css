@@ -21,6 +21,7 @@
 .product_image {
     cursor: pointer;
     transition: linear 0.3s;
+    object-fit: cover;
 }
 
 .product_image:hover {

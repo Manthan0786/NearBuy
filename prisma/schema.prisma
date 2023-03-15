@@ -7,60 +7,96 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
-  password  String?
-  seller    Seller[]
-  order     Order[]
-  cart      Cart[]
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  seller        Seller[]
+  order         Order[]
+  cart          Cart[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 model Seller {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
-  address   String   @db.Text
-  companyName   String    @db.VarChar(255)
-  products  Products[]
+  id          Int        @id @default(autoincrement())
+  user        User       @relation(fields: [userId], references: [id])
+  userId      Int        @unique
+  address     String     @db.Text
+  companyName String     @db.VarChar(255)
+  products    Products[]
 }
 
 model Products {
-  id           Int     @id @default(autoincrement())
-  seller       Seller  @relation(fields: [sellerID], references: [id])
-  sellerID     Int     
-  name         String  @db.VarChar(255)
-  price        Int     @db.Integer 
-  quantity     Int     @db.Integer
-  category     String  @default("Other") 
-  cart         Cart[]
-  product      ProductsOrdered[]
+  id          Int               @id @default(autoincrement())
+  seller      Seller            @relation(fields: [sellerID], references: [id])
+  sellerID    Int
+  name        String            @db.VarChar(255)
+  price       Float             @db.DoublePrecision
+  quantity    Int               @db.Integer
+  Description String            @db.Text
+  cart        Cart[]
+  product     ProductsOrdered[]
 }
-
 
 model Cart {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
   userId    Int      @unique
   product   Products @relation(fields: [productId], references: [id])
-  productId Int           
+  productId Int
 }
 
 model Order {
-  id        Int      @id @default(autoincrement()) 
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
-  orderTime   DateTime    @default(now())
-  pickupTime  DateTime
-  productsOrdered   ProductsOrdered[]
- }
+  id              Int               @id @default(autoincrement())
+  user            User              @relation(fields: [userId], references: [id])
+  userId          Int               @unique
+  orderTime       DateTime          @default(now())
+  pickupTime      DateTime
+  productsOrdered ProductsOrdered[]
+}
 
 model ProductsOrdered {
   id        Int      @id @default(autoincrement())
   order     Order    @relation(fields: [orderId], references: [id])
-  orderId   Int      
+  orderId   Int
   product   Products @relation(fields: [productId], references: [id])
   productId Int
 }
