@@ -11,7 +11,7 @@ function Buyerproductcategorycard(props) {
     return (
         <>
             <div className='product_productname'>
-                <Link href='product/products'>
+                <Link href={`../buyer/product/${props.name}`}>
                     <a>
                         <Image
                             src={image[props.image]}
@@ -26,7 +26,6 @@ function Buyerproductcategorycard(props) {
                 </Link>
                 <p className='styles.product_name'>{props.name}</p>
             </div>
-
         </>
     )
 }
