@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.buyerDetailsForm {
+    background-color: #171a1f;
+    text-align: center;
+    color: white;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.textfield {
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.submitButton {
+    color: white;
+    background-color: #0d9dea;
+    width: max(50%, 300px);
+    font-size: medium;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    border-width: 0;
+    cursor: pointer;
+    transition: 200ms ease-in-out;
+}
+
+.submitButton:hover {
+    background-color: #0b8632;
+    transition: 200ms ease-in-out;
+}

@@ -1,15 +1,16 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
-  - You are about to drop the column `role` on the `User` table. All the data in the column will be lost.
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "email" TEXT NOT NULL,
+    "name" TEXT,
+    "password" TEXT,
 
-*/
--- AlterEnum
-ALTER TYPE "Role" ADD VALUE 'ADMIN';
-
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "role",
-ADD COLUMN     "password" TEXT;
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Seller" (
@@ -28,6 +29,7 @@ CREATE TABLE "Products" (
     "name" VARCHAR(255) NOT NULL,
     "price" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
+    "category" TEXT NOT NULL DEFAULT 'Other',
 
     CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
 );
@@ -61,10 +63,10 @@ CREATE TABLE "ProductsOrdered" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Seller_userId_key" ON "Seller"("userId");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Products_sellerID_key" ON "Products"("sellerID");
+CREATE UNIQUE INDEX "Seller_userId_key" ON "Seller"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cart_userId_key" ON "Cart"("userId");
