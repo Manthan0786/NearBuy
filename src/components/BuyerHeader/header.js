@@ -2,8 +2,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import styles from './header.module.css'
 import { Link, MenuItem, TextField } from '@mui/material';
 import { useState } from 'react';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import Homepage  from '../../../pages/buyer/homepage';
+import SearchBar from '../searchbar';
 
 const area = [
     {
@@ -18,17 +17,24 @@ const area = [
 
 export default function Header() {
     const [city, setCity] = useState(area);
+    const [searchResults, setSearchResults] = useState([]);
     const handleChange = (e) => {
         setCity(e.target.value);
+    }
+
+    const handleClick = (e) => {
+        const query = e.target.value;
+        setTimeout(fetchSuggestion, 500);
+        setSearchResults(data);
     }
 
     return (
         <>
             <div className={styles.header}>
                 <Link href={"/"} >
-                  <h1 className={styles.title}>NearBuy</h1>
+                    <a className={styles.title}>NearBuy</a>
                 </Link>
-                
+
                 <div className={styles.account}>
                     <PersonIcon sx={{ fontSize: '1.3rem' }} />
                     <p>My Account</p>
@@ -50,11 +56,7 @@ export default function Header() {
                         ))}
                     </TextField>
                 </div>
-                <input
-                    className='searchbar'
-                    type="text"
-                    placeholder="Search here"
-                />
+                <SearchBar />
             </div>
         </>
     )

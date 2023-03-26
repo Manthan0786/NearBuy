@@ -17,9 +17,6 @@ import { Link } from '@mui/material';
 function ProductDescription(props) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const handleAddProduct = (props) => {
-
-    }
 
     const productImage = [airmax90shoesimg1, airmax90shoesimg2, airmax90shoesimg3, airmax90shoesimg4, airmax90shoesimg5, airmax90shoesimg6, airmax90shoesimg7, airmax90shoesimg8];
     return (
@@ -31,19 +28,17 @@ function ProductDescription(props) {
                 <div className="product-information">
                     <h2>Model Name</h2>
                     <p rows="8" cols={70}>{props.name}</p>
-                    
-                        <Button sx={{ backgroundColor: "black", width: '100%' }} onClick={() => {
-                            
-                            dispatch(addProduct({
-                                productImage: productImage[0],
-                                productName: props.name,
-                                productPrice: props.price,
-                                productDescription: props.description,
-                                productQuantity: 1
-                            }))
-                            router.push('/cart')
-                        }}>Buy Now</Button>
-                  
+
+                    <Button sx={{ backgroundColor: "black", width: '100%' }} onClick={() => {
+                        dispatch(addProduct({
+                            productImage: productImage[0],
+                            productName: props.name,
+                            productPrice: props.price,
+                            productDescription: props.description,
+                            productQuantity: 1
+                        }))
+                        router.push('/cart')
+                    }}>Buy Now</Button>
                     <h2>Product Information</h2>
                     <p>{props.description}</p>
                     <h2>Price</h2>

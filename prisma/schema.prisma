@@ -5,6 +5,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 model User {
@@ -36,11 +37,11 @@ model Products {
   price        Int     @db.Integer 
   quantity     Int     @db.Integer
   description  String  @db.VarChar(255)
-  category     String   
+  category     String  
+  location     Json  
   cart         Cart[]
   product      ProductsOrdered[]
 }
-
 
 model Cart {
   id        Int      @id @default(autoincrement())

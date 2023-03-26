@@ -1,13 +1,24 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProdByOne } from '../src/components/store';
 
 function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
-    console.log(cart)
+    const [total, setTotal] = useState(0);
+    
+
     const handleClick = (productQty, id) => {
-        dispatch(addProdByOne({id,productQty}))
+        dispatch(addProdByOne({ id, productQty }))
     }
+
+    useEffect(() => {
+        setTotal(cart.reduce((total, curr) => total + (curr.productPrice * curr.productQuantity), 0));
+    }, [cart])
+
+    
+
     return (
         <>
             <div className='cart_container'>
@@ -19,12 +30,12 @@ function Cart() {
                                     <img src={p.productImage.src} alt='product_image' width={"200px"} />
                                     <div>
                                         <p>{p.productName}</p>
-                                        <p>{p.productPrice}</p>
+                                        <p>${p.productPrice}</p>
                                     </div>
                                     <div className="cart_button">
-                                        <button onClick={()=>handleClick(p.productQuantity-1, i)}>-</button>
+                                        <button onClick={() => handleClick(p.productQuantity - 1, i)}>-</button>
                                         <span>{p.productQuantity}</span>
-                                        <button onClick={()=>handleClick(p.productQuantity+1, i)}>+</button>
+                                        <button onClick={() => handleClick(p.productQuantity + 1, i)}>+</button>
                                     </div>
                                 </div>
                             )
@@ -33,6 +44,7 @@ function Cart() {
                 </div>
                 <div className='cart_total_container'>
                     <h2>Summary</h2>
+                    {total === 0 ? <span>Cart is Empty</span> : <p>${total}</p>}
                 </div>
             </div>
         </>

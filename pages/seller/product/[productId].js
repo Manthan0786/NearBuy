@@ -7,7 +7,9 @@ import shoes2 from '../../../public/images/shoes2.jpg'
 import shoes3 from '../../../public/images/shoes3.jpg'
 import shoes4 from '../../../public/images/shoes4.jpg'
 import { useRouter } from 'next/router'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setLocation } from '../../../src/components/store/index';
 
 function ImageGridItem(img, index) {
     const style = {
@@ -21,6 +23,7 @@ function ImageGridItem(img, index) {
 
     return (
         <img
+            key={index}
             style={style}
             src={img.src}
             alt="Picture of the Product"
@@ -38,6 +41,7 @@ function getSpanEstimate(size) {
 
 export default function Product() {
     const imageList = [shoes, shoes, shoes1, shoes2, shoes3, shoes3, shoes3, shoes4];
+    const location  = useSelector((state) => state.location);
     const router = useRouter();
     const { productId } = router.query;
     const [state, setState] = useState({
@@ -47,11 +51,13 @@ export default function Product() {
         name: '',
         seller: {
             connect: {
-                id: 2
+                id: 1
             }
         },
-        category: productId
+        category: productId,
+        location: location
     })
+
     const { quantity, description, name, price } = state;
     const [edit, setEdit] = useState(false);
     const handleChange = (e) => {
@@ -61,7 +67,7 @@ export default function Product() {
         try {
             const response = await fetch('../../api/product', {
                 method: 'POST',
-                body: JSON.stringify(state),            
+                body: JSON.stringify(state),
                 headers: {
                     'Content-Type': 'application/json;'
                 }

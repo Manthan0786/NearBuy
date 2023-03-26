@@ -10,6 +10,7 @@ import reebok1 from '../../../public/images/shoes/reebok1.avif';
 import nikejordon from '../../../public/images/shoes/nikejordon.avif';
 import adidas1 from '../../../public/images/shoes/adidas1.avif';
 import styles from '../BuyerProductCard/buyerproductcard.module.css';
+import DistancefromUser from '../distanceCalculation';
 
 function ProductsCard(props) {
     const image = [vans, nike, nike1, nautica, reebok, reebok1, fila, nikejordon, adidas1]
@@ -31,7 +32,9 @@ function ProductsCard(props) {
                 </Link>
                 <div className={styles.product_name_price}>
                     <p className={styles.product_name}>{props.name}</p>
-                    <p className={styles.product_name}>{props.location}</p>
+                    <p className={styles.product_name}><DistancefromUser lat2={props.location.location.latitude}
+                        lon2={props.location.location.longitude} /></p>
+
                 </div>
             </div>
         </>
