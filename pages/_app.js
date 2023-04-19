@@ -1,6 +1,6 @@
 import '../public/css/styles.css'
 import Header from '../src/components/BuyerHeader/header'
-import { Provider } from "react-redux";
+//import { Provider } from "react-redux";
 import { store, persistor } from '../src/components/store';
 
 // This default export is required in a new `pages/_app.js` file.

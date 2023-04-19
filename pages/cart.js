@@ -7,7 +7,6 @@ function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const [total, setTotal] = useState(0);
-    
 
     const handleClick = (productQty, id) => {
         dispatch(addProdByOne({ id, productQty }))
