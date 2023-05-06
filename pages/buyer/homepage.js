@@ -1,10 +1,9 @@
 import Buyerproductcategorycard from '../../src/components/BuyerProductCard/buyerProductCategoryCard';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLocation } from '../../src/components/store';
 
 function Homepage() {
-    const dispatch = useDispatch();
+    const [loction, setLocation] = useState();
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(
@@ -15,7 +14,7 @@ function Homepage() {
                         longitude: position.coords.longitude,
                         accuracy: position.coords.accuracy
                     };
-                    dispatch(setLocation(coordinates));
+                    setLocation(coordinates);
                 } else {
                     console.error("Error: Position does not have coords property");
                 }
