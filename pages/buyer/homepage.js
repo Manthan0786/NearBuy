@@ -1,28 +1,6 @@
 import Buyerproductcategorycard from '../../src/components/BuyerProductCard/buyerProductCategoryCard';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
 function Homepage() {
-    const [loction, setLocation] = useState();
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                if (position.coords) {
-                    const coordinates = {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                        accuracy: position.coords.accuracy
-                    };
-                    setLocation(coordinates);
-                } else {
-                    console.error("Error: Position does not have coords property");
-                }
-            },
-            error => console.error(error)
-        );
-    },[]);
-
     return (
         <>
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Playfair+Display" />

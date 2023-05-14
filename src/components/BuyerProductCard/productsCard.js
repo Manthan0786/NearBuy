@@ -34,7 +34,6 @@ function ProductsCard(props) {
                     <p className={styles.product_name}>{props.name}</p>
                     <p className={styles.product_name}><DistancefromUser lat2={props.location.location.latitude}
                         lon2={props.location.location.longitude} /></p>
-
                 </div>
             </div>
         </>

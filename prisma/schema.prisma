@@ -1,71 +1,71 @@
-datasource db {
-  url      = env("DATABASE_URL")
-  provider = "postgresql"
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
-generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
+  password  String?
   firstname String?
   lastname  String?
-  password  String?
-  seller    Seller[]
-  order     Order[]
-  cart      Cart[]
+  cart      Cart?
+  order     Order?
+  seller    Seller?
 }
 
 model Seller {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
-  address   String   @db.Text
-  companyName   String    @db.VarChar(255)
-  products  Products[]
+  id          Int        @id @default(autoincrement())
+  userId      Int        @unique
+  address     String
+  companyName String     @db.VarChar(255)
+  user        User       @relation(fields: [userId], references: [id])
+  products    Products[]
 }
 
 model Products {
-  id           Int     @id @default(autoincrement())
-  seller       Seller  @relation(fields: [sellerID], references: [id])
-  sellerID     Int     
-  name         String  @db.VarChar(255)
-  price        Int     @db.Integer 
-  quantity     Int     @db.Integer
-  description  String  @db.VarChar(255)
-  category     String  
-  location     Json  
-  cart         Cart[]
-  product      ProductsOrdered[]
+  id          Int               @id @default(autoincrement())
+  sellerID    Int
+  name        String            @db.VarChar(255)
+  price       Int
+  quantity    Int
+  category    String
+  description String            @db.VarChar(255)
+  location    Json
+  seller      Seller            @relation(fields: [sellerID], references: [id])
+  cart        Cart[]
+  product     ProductsOrdered[]
 }
 
 model Cart {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
   userId    Int      @unique
+  productId Int
   product   Products @relation(fields: [productId], references: [id])
-  productId Int           
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Order {
-  id        Int      @id @default(autoincrement()) 
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
-  orderTime   DateTime    @default(now())
-  pickupTime  DateTime
-  productsOrdered   ProductsOrdered[]
- }
+  id              Int               @id @default(autoincrement())
+  userId          Int               @unique
+  orderTime       DateTime          @default(now())
+  pickupTime      DateTime
+  user            User              @relation(fields: [userId], references: [id])
+  productsOrdered ProductsOrdered[]
+}
 
 model ProductsOrdered {
   id        Int      @id @default(autoincrement())
-  order     Order    @relation(fields: [orderId], references: [id])
-  orderId   Int      
-  product   Products @relation(fields: [productId], references: [id])
+  orderId   Int
   productId Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Products @relation(fields: [productId], references: [id])
 }
 
 enum Role {

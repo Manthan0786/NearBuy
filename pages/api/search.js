@@ -3,19 +3,22 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-  const query = req.query.q;
-  if(query === '') {
-    return
-  }
-  console.log(query);
-  const result = await prisma.products.findMany({
-    where: {
-      name: {
-        contains: query,
-        mode: 'insensitive',
+  const query = String(Object.values(req.query)[0]);
+  try {
+    if(query === '') {
+      return
+    }
+    const result = await prisma.Products.findMany({
+      where: {
+        name: {
+          startsWith: query,
+          mode: 'insensitive',
+        },
       },
-    },
-  })
-  console.log(result);
-  res.status(200).json(result);
+    })
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Error searching:', error);
+    res.status(500).json({ error: 'Error searching' });
+  }
 }

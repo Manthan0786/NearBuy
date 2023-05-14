@@ -31,10 +31,9 @@ export default function Header() {
     return (
         <>
             <div className={styles.header}>
-                <Link href={"/"} >
-                    <a className={styles.title}>NearBuy</a>
+                <Link href="/buyer/homepage" style={{textDecoration:"none", color: 'black'}}>
+                    <p className={styles.title}>NearBuy</p>
                 </Link>
-
                 <div className={styles.account}>
                     <PersonIcon sx={{ fontSize: '1.3rem' }} />
                     <p>My Account</p>

@@ -5,8 +5,11 @@ import watch from '../../../public/images/watch.png';
 import wallet from '../../../public/images/wallet.jpg';
 import styles from '../BuyerProductCard/buyerproductcard.module.css';
 import bag from '../../../public/images/bag.jpeg';
+import { useContext } from 'react';
+import { LocationContext } from '../Context/locationContext';
 
 function Buyerproductcategorycard(props) {
+
     const image = [watch, wallet, shoes, bag]
     return (
         <>

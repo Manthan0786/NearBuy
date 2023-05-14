@@ -15,6 +15,7 @@ html {
     border-width: 0px;
     margin-left: 0px;
     padding-left: 0px;
+    text-decoration: none;
 }
 
 input::-webkit-outer-spin-button,
@@ -128,7 +129,7 @@ input::-webkit-inner-spin-button {
 }
 
 .product-images-description-container {
-    width: 100%;
+    width: auto;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -136,15 +137,14 @@ input::-webkit-inner-spin-button {
 }
 
 .product-images-container {
-    width: auto;
+    width: 60%;
     padding: 3px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(auto, 1fr);
+    display: flex;
 }
 
 .product-information {
-    width: 37%;
+    flex-grow: 1;
+    min-width: 0;
     padding: 20px;
 }
 
@@ -264,5 +264,5 @@ input::-webkit-inner-spin-button {
 
 .searchbar:focus {
     width: 300px;
-    
+
 }

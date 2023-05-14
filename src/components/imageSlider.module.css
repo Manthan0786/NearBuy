@@ -1,0 +1,38 @@
+.item {
+    position: relative;
+    height: 0;
+    width: 200px;
+    padding-bottom: 100%;
+}
+
+.column {
+    width: 20%;
+    margin: 0 5px 0 0;
+}
+.thumb {
+    position: relative;
+    height: 10%;
+    margin-bottom: 5px;
+}
+
+.sideimages {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Start Bootstrap carousel */
+.itemP {
+    height: 40rem;
+  }
+  .itemP > img {
+    width: 100%;
+    object-fit: contain;
+    height: 40rem;
+  }
+  /* End Bootstrap carousel */

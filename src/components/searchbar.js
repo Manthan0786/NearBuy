@@ -1,17 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function SearchBar() {
     const [results, setResults] = useState([]);
-    const handleChange = (e) => {
-        const query = e.target.value;
-        fetchSearch(query);
-    }
+    const [query, setQuery] = useState('');
 
-    async function fetchSearch(query) {
-        const response = await fetch(`api/search?q=${query}`);
-        const data = await response.json();
-        console.log(data);
-        setResults(data);
+    useEffect(() => {
+        async function fetchSearch() {
+            try {
+                if (query) {
+                    const response = await fetch(`/api/search?query=${query}`);
+                    const data = await response.json();
+                    console.log(data);
+                    setResults(data);
+                }
+            }
+            catch (error) {
+                console.error('Error searching:', error);
+            }
+        }
+        fetchSearch()
+    }, [query])
+
+    const handleChange = (e) => {
+        setQuery(e.target.value);
     }
 
     return (
@@ -20,8 +31,20 @@ function SearchBar() {
                 className='searchbar'
                 type="text"
                 placeholder="Search here"
+                value={query}
                 onChange={handleChange}
             />
+
+            {
+                query && (
+                    <div>
+                        {results.map((result) => (
+                            <div key={result.id}>{result.name}</div>
+                        ))}
+                    </div>
+                )
+            }
+
         </>
     )
 }

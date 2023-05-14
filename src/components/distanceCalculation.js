@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState, useContext } from "react";
+import { LocationContext } from "./Context/locationContext";
 
 function DistancefromUser(props) {
+    const location = useContext(LocationContext);
     const [distance, setDistance] = useState();
-    const { location } = useSelector((state) => state.location);
-    
 
     const { lat2, lon2 } = props
     
     useEffect(() => {
         if (location) {
-            console.log("Repaint");
             const lat1 = location.latitude;
             const lon1 = location.longitude;
             const distance = haversine(lat1, lon1, lat2, lon2)
