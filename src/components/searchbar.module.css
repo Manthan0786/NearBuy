@@ -1,0 +1,43 @@
+/* Header Component CSS */
+
+.search_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+.searchbar {
+    width: 200px;
+    padding-left: 7px;
+    border-radius: 10px;
+    height: 20px;
+    transition: width 1s ease-in-out;
+}
+
+.searchbar:focus {
+    width: 300px;
+}
+
+.searchresults {
+    width: 100%;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    max-height: 100px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+}
+
+.searchresults div {
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchresults div:hover {
+    background-color: #f5f5f5;
+}

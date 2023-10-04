@@ -1,8 +1,7 @@
-.product_name_price {
+/* .product_name_price {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+    flex-direction: column;
+} */
 
 .product_name {
     font-family: 'Work Sans';

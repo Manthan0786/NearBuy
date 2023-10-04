@@ -1,53 +1,50 @@
-import airmax90shoesimg1 from '../../../../public/images/NikeAirMax90/airmax90shoesimg1.jpg';
-import airmax90shoesimg2 from '../../../../public/images/NikeAirMax90/airmax90shoesimg2.jpg';
-import airmax90shoesimg3 from '../../../../public/images/NikeAirMax90/airmax90shoesimg3.webp';
-import airmax90shoesimg4 from '../../../../public/images/NikeAirMax90/airmax90shoesimg4.jpg';
-import airmax90shoesimg5 from '../../../../public/images/NikeAirMax90/airmax90shoesimg5.jpg';
-import airmax90shoesimg6 from '../../../../public/images/NikeAirMax90/airmax90shoesimg6.webp';
-import airmax90shoesimg7 from '../../../../public/images/NikeAirMax90/airmax90shoesimg7.jpg';
-import airmax90shoesimg8 from '../../../../public/images/NikeAirMax90/airmax90shoesimg8.jpg';
-import Imageslider from "../../../../src/components/imageSlider";
+import { useSession } from 'next-auth/react';
 import { Button } from "@mui/material";
 import { PrismaClient } from "@prisma/client";
-import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../../src/components/store';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../api/auth/[...nextauth]';
+import path from 'path';
+import { promises as fs } from 'fs';
 import { useRouter } from 'next/router';
-import { Link } from '@mui/material';
+import Imageslider from '../../../../src/components/imageSlider';
 
 function ProductDescription(props) {
-    const dispatch = useDispatch();
+    const [{ id: productId, ...product }, { id: userId }] = props.data;
     const router = useRouter();
-    const handleAddProduct = (props) => {
-
+    
+    const handlebuynow = async () => {
+        try {
+            const response = await fetch('/api/addToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productId, userId })
+            });
+            const data = await response.json();
+            if (response.status == 200) {
+                router.push('/buyer/cart');
+            }
+        } catch (error) {
+            console.error('Error adding product to cart:', error);
+        }
     }
 
-    const productImage = [airmax90shoesimg1, airmax90shoesimg2, airmax90shoesimg3, airmax90shoesimg4, airmax90shoesimg5, airmax90shoesimg6, airmax90shoesimg7, airmax90shoesimg8];
     return (
         <>
             <div className="product-images-description-container">
                 <div className="product-images-container">
-                    <Imageslider images={productImage} />
-                </div>
+                    <Imageslider images={product.url} />
+                </div> 
                 <div className="product-information">
                     <h2>Model Name</h2>
-                    <p rows="8" cols={70}>{props.name}</p>
-                    
-                        <Button sx={{ backgroundColor: "black", width: '100%' }} onClick={() => {
-                            
-                            dispatch(addProduct({
-                                productImage: productImage[0],
-                                productName: props.name,
-                                productPrice: props.price,
-                                productDescription: props.description,
-                                productQuantity: 1
-                            }))
-                            router.push('/cart')
-                        }}>Buy Now</Button>
-                  
+                    <p rows="8" cols={70}>{product.name}</p>
+
+                    <Button sx={{ backgroundColor: "black", width: '100%' }} onClick={() => handlebuynow(product.id)}>Buy Now</Button>
                     <h2>Product Information</h2>
-                    <p>{props.description}</p>
+                    <p>{product.description}</p>
                     <h2>Price</h2>
-                    <p>${props.price}</p>
+                    <p>${product.price}</p>
                 </div>
             </div>
         </>
@@ -55,13 +52,54 @@ function ProductDescription(props) {
 }
 
 export async function getServerSideProps(context) {
+
+    const prisma = new PrismaClient();
     const { productId } = context.params;
     const pid = JSON.parse(productId);
-    const prisma = new PrismaClient();
-    const res = await prisma.Products.findUnique({
-        where: { id: pid }
-    });
-    return { props: res }
+    const session = await getServerSession(context.req, context.res, authOptions)
+
+    async function fetchUserID() {
+        const res = await prisma.user.findUnique({
+            where: {
+                email: session.user.email
+            },
+            select: {
+                id: true,
+            }
+        })
+        return res
+    }
+    async function fetchProduct() {
+        const product = await prisma.products.findUnique({
+            where: { id: pid },
+            select: {
+                id: true,
+                name: true,
+                price: true,
+                description: true,
+            }
+        })
+        const fetchImages = async () => {
+            const productImage = []
+            const dir = "public/uploads/product-" + product.id
+            const imageDirectory = path.join(process.cwd(), dir);
+            const filenames = await fs.readdir(imageDirectory)
+            filenames.forEach(file => {
+                const url = "http://localhost:3000/uploads/product-" + product.id + "/" + file;
+                productImage.push(url);
+            });
+            product.url = productImage;
+            return product
+        }
+        const res = await fetchImages();
+        return res
+    }
+    const data = await Promise.all([fetchProduct(), fetchUserID()]).then(res => { return res })
+    return {
+        props: {
+            data
+        }
+    }
 }
 
 export default ProductDescription;

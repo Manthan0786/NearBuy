@@ -1,13 +1,12 @@
-import { useState } from "react";
 import Image from "next/image";
 import styles from '../../src/components/imageSlider.module.css';
 
-function Imageslider({images}) {
+function Imageslider({ images }) {
     return (
         <>
             {images.map((img, index) =>
                 <div key={index} className={styles.image_size}>
-                    <Image layout="responsive" placeholder="blur" src={img} />
+                    <Image alt="shoe picture" width={500} height={500} src={img} />
                 </div>
             )}
         </>

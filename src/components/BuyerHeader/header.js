@@ -1,9 +1,12 @@
 import PersonIcon from '@mui/icons-material/Person';
 import styles from './header.module.css'
 import { Link, MenuItem, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import Homepage  from '../../../pages/buyer/homepage';
+import SearchBar from '../searchbar';
+import { signOut } from 'next-auth/react';
+import { useRouter } from "next/router";
 
 const area = [
     {
@@ -16,22 +19,63 @@ const area = [
     }
 ];
 
-export default function Header() {
+export default function BuyerHeader() {
     const [city, setCity] = useState(area);
+    const dropdownRef = useRef(null);
+
     const handleChange = (e) => {
         setCity(e.target.value);
     }
 
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+    function closeDropdownOnClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsDropdownOpen(false);
+        }
+    }
+    useEffect(() => {
+        if (isDropdownOpen) {
+            document.addEventListener('click', closeDropdownOnClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('click', closeDropdownOnClickOutside);
+        }
+    }, [isDropdownOpen])
+
+    const router = useRouter();
+    const handleLogOut = async () => {
+        const data = await signOut({ redirect: false, callbackUrl: "/" });
+        router.push(data.url)
+    }
+
+
     return (
         <>
             <div className={styles.header}>
-                <Link href={"/"} >
-                  <h1 className={styles.title}>NearBuy</h1>
-                </Link>
-                
-                <div className={styles.account}>
-                    <PersonIcon sx={{ fontSize: '1.3rem' }} />
-                    <p>My Account</p>
+                <h1 className={styles.title}>
+                    <Link href="/buyer/homepage" style={{ color: 'black', textDecoration: 'none' }}>
+                        NearBuy
+                    </Link>
+                </h1>
+
+                <div className={styles.dropdown} onClick={toggleDropdown} ref={dropdownRef}>
+                    <div className={styles.myAccount}>
+                        <PersonIcon sx={{ fontSize: '1.3rem' }} />
+                        <button className={styles.dropdownTrigger}>My Account</button>
+                    </div>
+                    {
+                        isDropdownOpen && (
+                            <div className={styles.dropdownContent}>
+                                <a href="/account/profile">Profile</a>
+                                <a href="/buyer/cart">Cart</a>
+                                <a style={{ cursor: 'pointer' }} onClick={() => handleLogOut()}>Logout</a>
+                            </div>
+                        )
+                    }
                 </div>
             </div>
 
@@ -46,15 +90,11 @@ export default function Header() {
                         variant='standard'
                     >
                         {area.map((city) => (
-                            <MenuItem key={city.id} value={city.id}>{city.name}</MenuItem>
+                            <MenuItem key={city.id} value={city.name}>{city.name}</MenuItem>
                         ))}
                     </TextField>
                 </div>
-                <input
-                    className='searchbar'
-                    type="text"
-                    placeholder="Search here"
-                />
+                <SearchBar />
             </div>
         </>
     )

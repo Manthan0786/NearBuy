@@ -1,7 +1,6 @@
 import { Button, Link, TextField } from "@mui/material";
 import { useReducer } from "react";
 import React from "react";
-import CryptoJS from "crypto-js";
 
 function Signup() {
 
